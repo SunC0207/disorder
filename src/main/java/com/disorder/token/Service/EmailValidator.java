@@ -1,4 +1,4 @@
-package com.disorder.registration.Service;
+package com.disorder.token.Service;
 
 import java.util.function.Predicate;
 import java.util.regex.Pattern;

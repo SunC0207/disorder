@@ -1,7 +1,6 @@
-package com.disorder.authentication.jwt.Filter;
+package com.disorder.config;
 
-import com.disorder.authentication.jwt.Repository.JwtTokenRepository;
-import com.disorder.authentication.jwt.Service.JwtService;
+import com.disorder.token.Repository.JwtTokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

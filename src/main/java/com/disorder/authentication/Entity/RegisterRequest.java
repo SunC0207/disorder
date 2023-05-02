@@ -1,4 +1,4 @@
-package com.disorder.registration.Entity;
+package com.disorder.authentication.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

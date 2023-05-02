@@ -1,6 +1,5 @@
 package com.disorder.config;
 
-import com.disorder.authentication.jwt.Filter.JWTAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

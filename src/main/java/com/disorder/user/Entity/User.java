@@ -31,8 +31,7 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-    private boolean locked = false;
-    private boolean enable = false;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -51,7 +50,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return !locked;
+        return true;
     }
 
     @Override
@@ -61,6 +60,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enable;
+        return true;
     }
 }

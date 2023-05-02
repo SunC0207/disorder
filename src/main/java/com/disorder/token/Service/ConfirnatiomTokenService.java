@@ -1,7 +1,7 @@
-package com.disorder.registration.Service;
+package com.disorder.token.Service;
 
-import com.disorder.registration.Entity.ConfirmationToken;
-import com.disorder.registration.Repository.ConfirmationTokenRepository;
+import com.disorder.token.Entity.ConfirmationToken;
+import com.disorder.token.Repository.ConfirmationTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

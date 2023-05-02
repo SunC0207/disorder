@@ -1,4 +1,4 @@
-package com.disorder.authentication.jwt.Entity;
+package com.disorder.token.Entity;
 
 import com.disorder.user.Entity.User;
 import jakarta.persistence.*;
@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 
 @Data
 @Builder

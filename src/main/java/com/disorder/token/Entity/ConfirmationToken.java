@@ -1,4 +1,4 @@
-package com.disorder.registration.Entity;
+package com.disorder.token.Entity;
 
 import com.disorder.user.Entity.User;
 import jakarta.persistence.*;

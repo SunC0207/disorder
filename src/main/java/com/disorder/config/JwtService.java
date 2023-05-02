@@ -1,4 +1,4 @@
-package com.disorder.authentication.jwt.Service;
+package com.disorder.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

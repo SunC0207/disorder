@@ -1,6 +1,6 @@
-package com.disorder.registration.Repository;
+package com.disorder.token.Repository;
 
-import com.disorder.registration.Entity.ConfirmationToken;
+import com.disorder.token.Entity.ConfirmationToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
