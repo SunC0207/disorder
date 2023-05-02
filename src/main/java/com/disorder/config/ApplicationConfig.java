@@ -1,6 +1,7 @@
 package com.disorder.config;
 
-import com.disorder.user.UserRepository;
+import com.disorder.registration.Service.EmailValidator;
+import com.disorder.user.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,19 +18,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
-    private final UserRepository repository;
+    private final UserDetailsService userDetailsService;
 
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> repository.findByEmail(username)
-                .orElseThrow(()->new UsernameNotFoundException("查無此用戶"));
+        return userDetailsService;
     }
 
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService());
-        authenticationProvider.setPasswordEncoder(PasswordEncoder());
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
 
@@ -39,7 +39,11 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public PasswordEncoder PasswordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Bean
+    public EmailValidator emailValidator(){return new EmailValidator();}
+
 }

@@ -1,10 +1,11 @@
 package com.disorder.config;
 
-import jakarta.servlet.Filter;
+import com.disorder.authentication.jwt.Filter.JWTAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -14,15 +15,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfiguration {
+@EnableMethodSecurity
+public class SecurityConfig {
     private final JWTAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-
-        httpSecurity
+        http
                 .csrf()
                 .disable() // 防止Cross Site Request Forgery(跨站請求偽造)
                 .authorizeHttpRequests()
@@ -37,6 +38,6 @@ public class SecurityConfiguration {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return httpSecurity.build();
+        return http.build();
     }
 }

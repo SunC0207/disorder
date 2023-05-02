@@ -1,4 +1,4 @@
-package com.disorder.user;
+package com.disorder.user.Entity;
 
 public enum Role {
     USER,

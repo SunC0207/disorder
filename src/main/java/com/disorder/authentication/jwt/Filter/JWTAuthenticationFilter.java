@@ -1,5 +1,7 @@
-package com.disorder.config;
+package com.disorder.authentication.jwt.Filter;
 
+import com.disorder.authentication.jwt.Repository.JwtTokenRepository;
+import com.disorder.authentication.jwt.Service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,24 +17,31 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+
 @Component
 @RequiredArgsConstructor
 public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final JwtTokenRepository jwtTokenRepository;
+
     @Override
     protected void doFilterInternal(
             @NonNull HttpServletRequest request,
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
+        if (request.getServletPath().contains("/api/auth")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         final String authHeader = request.getHeader("Authorization"); // Authorization 是 Http Authentication(Http認證) 的方案 有許多種格式
         final String JWT;
         final String userEmail;
 
-        if(authHeader == null || !authHeader.startsWith("Bearer ")){ // 這裡使用OAuth2 的 Bearer格式 Bearer沒有硬性的Algorithm(演算法)規定 通常JWT都會使用Bearer作為前綴
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) { // 這裡使用OAuth2 的 Bearer格式 Bearer沒有硬性的Algorithm(演算法)規定 通常JWT都會使用Bearer作為前綴
             filterChain.doFilter(request, response);
             return;
         }
@@ -41,9 +50,12 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
         userEmail = jwtService.extractUsername(JWT);
 
-        if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){ // 如果有userEmail 而且未經驗證的話
+        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) { // 如果有userEmail 而且未經驗證的話
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail); // 從DB取得user資料
-            if (jwtService.isTokenValid(JWT, userDetails)){ // 確認是不是有效的token及user
+            var isTokenValid = jwtTokenRepository.findByToken(JWT)
+                    .map(t -> !t.isExpired() && !t.isRevoked())
+                    .orElse(false);
+            if (jwtService.isTokenValid(JWT, userDetails) && isTokenValid) { // 確認是不是有效的token及user
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken( // new一個認證token
                         userDetails,
                         null,
