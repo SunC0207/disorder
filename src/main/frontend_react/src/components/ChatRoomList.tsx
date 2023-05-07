@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import useChatRooms from "../hooks/useChatRooms";
 
-const ChatRoomGrid = () => {
+const ChatRoomList = () => {
   const { chatRooms, error } = useChatRooms();
 
   return (
@@ -16,4 +16,4 @@ const ChatRoomGrid = () => {
   );
 };
 
-export default ChatRoomGrid;
+export default ChatRoomList;

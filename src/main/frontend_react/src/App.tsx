@@ -1,6 +1,7 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
-import ChatRoomGrid from "./components/ChatRoomGrid";
+import ChatRoomList from "./components/ChatRoomList";
+import InfoGrid from "./components/InfoGrid";
 
 function App() {
   return (
@@ -15,10 +16,12 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem area="aside">
-          <ChatRoomGrid />
+          <ChatRoomList />
         </GridItem>
       </Show>
-      <GridItem area="main"></GridItem>
+      <GridItem area="main">
+        <InfoGrid />
+      </GridItem>
     </Grid>
   );
 }

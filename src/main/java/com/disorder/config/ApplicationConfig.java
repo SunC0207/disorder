@@ -2,6 +2,7 @@ package com.disorder.config;
 
 import com.disorder.token.Service.EmailValidator;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,5 +44,8 @@ public class ApplicationConfig {
 
     @Bean
     public EmailValidator emailValidator(){return new EmailValidator();}
+
+    @Bean
+    public ModelMapper modelMapper(){return  new ModelMapper();}
 
 }

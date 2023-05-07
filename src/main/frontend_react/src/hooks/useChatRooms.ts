@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../Services/api-client";
 import { CanceledError } from "axios";
+import apiChatRoom from "../Services/api-chatRoom";
 
 interface ChatRoom {
   id: number;
@@ -17,8 +18,8 @@ const useChatRooms = () => {
   useEffect(() => {
     const controller = new AbortController();
 
-    apiClient
-      .get<FetchChatRoomsResponse>("apiclient之後接的網址", {
+    apiChatRoom
+      .get<FetchChatRoomsResponse>("/get-all", {
         signal: controller.signal,
       })
       .then((response) => setChatRooms(response.data.results))
