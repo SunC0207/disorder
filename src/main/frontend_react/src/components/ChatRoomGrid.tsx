@@ -1,25 +1,8 @@
-import React, { useEffect, useState } from "react";
-import apiClient from "../Services/api-client";
 import { Text } from "@chakra-ui/react";
-
-interface ChatRoom {
-  id: number;
-  name: string;
-}
-interface FetchChatRoomsResponse {
-  results: ChatRoom[];
-}
+import useChatRooms from "../hooks/useChatRooms";
 
 const ChatRoomGrid = () => {
-  const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    apiClient
-      .get<FetchChatRoomsResponse>("chatRooms")
-      .then((response) => setChatRooms(response.data.results))
-      .catch((error) => setError(error.message));
-  });
+  const { chatRooms, error } = useChatRooms();
 
   return (
     <>

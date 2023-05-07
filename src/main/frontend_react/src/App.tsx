@@ -14,11 +14,11 @@ function App() {
         <NavBar />
       </GridItem>
       <Show above="lg">
-        <GridItem area="aside">Aside</GridItem>
+        <GridItem area="aside">
+          <ChatRoomGrid />
+        </GridItem>
       </Show>
-      <GridItem area="main">
-        <ChatRoomGrid />
-      </GridItem>
+      <GridItem area="main"></GridItem>
     </Grid>
   );
 }
