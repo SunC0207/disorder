@@ -53,14 +53,13 @@ public class AuthenticationService {
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
 
-        if (!user.isEnabled()) {
-            throw new IllegalStateException("此用戶未經驗證");
-        }
+        if (!user.isEnabled()) throw new IllegalStateException("此用戶未經驗證");
 
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);
+
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
@@ -89,7 +88,6 @@ public class AuthenticationService {
 
         var saveUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
-        var refreshToken = jwtService.generateRefreshToken(user);
         saveUserToken(saveUser, jwtToken);
 
 
@@ -104,8 +102,8 @@ public class AuthenticationService {
 
         confirnatiomTokenService.saveConfirmationToken(confirmationToken);
 
-        String confirmLink = "http://localhost:8080/api/auth/confirm?token="+verifyToken;
-        emailSender.sendEmail(request.getEmail(),buildConfirmEmail(request.getName(), confirmLink));
+//        String confirmLink = "http://localhost:8080/api/auth/confirm?token="+verifyToken;
+//        emailSender.sendEmail(request.getEmail(),buildConfirmEmail(request.getName(), confirmLink));
 
         return verifyToken;
     }
@@ -174,7 +172,7 @@ public class AuthenticationService {
             }
         }
     }
-    private String buildConfirmEmail(String userEmail, String confirmLink) {
+    private String buildConfirmEmail(String userName, String confirmLink) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
@@ -230,7 +228,7 @@ public class AuthenticationService {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + userEmail + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for registering. Please click on the below link to activate your account: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + confirmLink + "\">Activate Now</a> </p></blockquote>\n Link will expire in 15 minutes. <p>See you soon</p>" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">嗨 " + userName + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> 感謝您的註冊，請點擊以下連結啟用您的帳號: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + confirmLink + "\">啟用帳號</a> </p></blockquote>\n 連結將在15分鐘後失效 <p>祝您有美好的一天</p>" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

@@ -2,8 +2,8 @@ package com.disorder.authentication.Controller;
 
 import com.disorder.authentication.Entity.AuthenticationRequest;
 import com.disorder.authentication.Entity.AuthenticationResponse;
-import com.disorder.authentication.Service.AuthenticationService;
 import com.disorder.authentication.Entity.RegisterRequest;
+import com.disorder.authentication.Service.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
