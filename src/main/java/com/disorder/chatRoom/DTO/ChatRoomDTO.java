@@ -8,4 +8,5 @@ import lombok.RequiredArgsConstructor;
 public class ChatRoomDTO {
     private  Integer id;
     private String name;
+    private String image;
 }

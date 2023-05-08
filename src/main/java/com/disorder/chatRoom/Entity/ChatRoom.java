@@ -20,5 +20,6 @@ public class ChatRoom {
     @GeneratedValue
     private Integer id;
     private String name;
+    private String image;
 
 }

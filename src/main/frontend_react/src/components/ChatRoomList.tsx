@@ -1,4 +1,11 @@
-import { Text } from "@chakra-ui/react";
+import {
+  HStack,
+  Image,
+  List,
+  ListIcon,
+  ListItem,
+  Text,
+} from "@chakra-ui/react";
 import useChatRooms from "../hooks/useChatRooms";
 
 const ChatRoomList = () => {
@@ -7,11 +14,27 @@ const ChatRoomList = () => {
   return (
     <>
       {error && <Text>{error}</Text>}
-      <ul>
+      <List>
+        <ListItem key="0" paddingY="5px">
+          <HStack>
+            <Image
+              src="https://cdn4.iconfinder.com/data/icons/seo-and-digital-marketing-1-2/128/2-512.png"
+              borderRadius={8}
+              boxSize="50px"
+            />
+            <Text fontSize="lg">News</Text>
+          </HStack>
+        </ListItem>
+        
         {chatRooms.map((chatroom) => (
-          <li key={chatroom.id}>{chatroom.name}</li>
+          <ListItem key={chatroom.id} paddingY="5px">
+            <HStack>
+              <Image src={chatroom.image} borderRadius={8} boxSize="50px" />
+              <Text fontSize="lg">{chatroom.name}</Text>
+            </HStack>
+          </ListItem>
         ))}
-      </ul>
+      </List>
     </>
   );
 };

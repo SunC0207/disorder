@@ -5,6 +5,7 @@ import apiChatRoom from "../Services/api-chatRoom";
 interface ChatRoom {
   id: number;
   name: string;
+  image: string;
 }
 
 const useChatRooms = () => {
