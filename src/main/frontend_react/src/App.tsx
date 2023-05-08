@@ -1,7 +1,8 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Box, Container, Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import ChatRoomList from "./components/ChatRoomList";
 import InfoGrid from "./components/InfoGrid";
+import SideBarTag from "./components/SideBarTag";
 
 function App() {
   return (
@@ -20,12 +21,14 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
-          <ChatRoomList />
+          <SideBarTag />
         </GridItem>
       </Show>
-      <GridItem area="main">
-        <InfoGrid />
-      </GridItem>
+      <Box h="500px">
+        <GridItem area="main">
+          <InfoGrid />
+        </GridItem>
+      </Box>
     </Grid>
   );
 }
