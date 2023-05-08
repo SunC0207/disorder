@@ -1,16 +1,10 @@
-import {
-  HStack,
-  Image,
-  List,
-  ListIcon,
-  ListItem,
-  Text,
-} from "@chakra-ui/react";
+import { HStack, Image, List, ListItem, Spinner, Text } from "@chakra-ui/react";
 import useChatRooms from "../hooks/useChatRooms";
+import ChatListSkeleton from "./ChatListSkeleton";
 
 const ChatRoomList = () => {
-  const { chatRooms, error } = useChatRooms();
-
+  const { chatRooms, error, isLoading } = useChatRooms();
+  const skeletons = [1, 2, 3];
   return (
     <>
       {error && <Text>{error}</Text>}
@@ -25,7 +19,10 @@ const ChatRoomList = () => {
             <Text fontSize="lg">News</Text>
           </HStack>
         </ListItem>
-        
+
+        {isLoading &&
+          skeletons.map((skeleton) => <ChatListSkeleton key={skeleton} />)}
+
         {chatRooms.map((chatroom) => (
           <ListItem key={chatroom.id} paddingY="5px">
             <HStack>
