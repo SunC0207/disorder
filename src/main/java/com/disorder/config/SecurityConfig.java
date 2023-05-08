@@ -26,13 +26,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .csrf()
-                .disable() // 防止Cross Site Request Forgery(跨站請求偽造)
+//                .csrf()
+//                .disable() // 防止Cross Site Request Forgery(跨站請求偽造)
+//                .authorizeHttpRequests()
+//                .requestMatchers("/api/auth/**","/index.html")
+//                .permitAll()
+//                .anyRequest()
+//                .authenticated() // 除了設定的請求外 其他皆需認證
+                .cors()
+                .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/auth/**","/index.html")
-                .permitAll()
                 .anyRequest()
-                .authenticated() // 除了設定的請求外 其他皆需認證
+                .permitAll()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

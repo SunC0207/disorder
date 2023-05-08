@@ -17,7 +17,7 @@ public class InfoServiceImpl implements InfoService{
     private final ModelMapper modelMapper;
     @Override
     public List<InfoDTO> getAll() {
-        return repository.findAll()
+        return repository.findAllOrdByDate()
                 .stream().map(this::EntityToDTO)
                 .collect(Collectors.toList());
     }

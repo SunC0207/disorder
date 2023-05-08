@@ -6,7 +6,7 @@ interface Props {
 
 const InfoDate = ({ date }: Props) => {
   return (
-    <Badge fontSize="14px" paddingX={2} borderRadius={1}>
+    <Badge fontSize="14px" paddingX={2} borderRadius={1} >
       {date}
     </Badge>
   );

@@ -3,6 +3,7 @@ import {
   CardBody,
   CardHeader,
   HStack,
+  Heading,
   Image,
   Text,
 } from "@chakra-ui/react";
@@ -15,14 +16,13 @@ interface Props {
 
 const InformationCard = ({ info }: Props) => {
   return (
-    <Card borderRadius={10} overflow="hidden">
+    <Card borderRadius={10} overflow="hidden" padding="10px">
       <Image src={info.image} />
-      <HStack justifyContent="space-between">
-        <CardHeader>{info.subject}</CardHeader>
-        <InfoDate date={info.date} />
-      </HStack>
-
       <CardBody>
+        <HStack justifyContent="space-between">
+          <Heading>{info.subject}</Heading>
+          <InfoDate date={info.date} />
+        </HStack>
         <Text>{info.content}</Text>
       </CardBody>
     </Card>

@@ -51,7 +51,7 @@ const Form = ({ onSubmit }: Props) => {
           type="text"
           className="form-control"
         />
-        {errors.email && <p className="text-danger">{errors.email.message}</p>}
+        {errors.email && <p className="text-danger"></p>}
       </div>
       <div className="mb-3">
         <label htmlFor="password" className="form-label">

@@ -10,30 +10,31 @@ export interface Info {
   date: string;
 }
 
-interface FetchInfosResponse {
-  result: Info[];
-}
-
 const useInfos = () => {
   const [infos, setInfos] = useState<Info[]>([]);
   const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
-
+    setLoading(true);
     apiInfomation
-      .get<FetchInfosResponse>("/get-all", {
+      .get("/get-all", {
         signal: controller.signal,
       })
-      .then((reponse) => setInfos(reponse.data.result))
+      .then((response) => {
+        setInfos(response.data);
+        setLoading(false);
+      })
       .catch((error) => {
         if (error instanceof CanceledError) return;
         setError(error.message);
+        setLoading(false);
       });
     return () => controller.abort();
-  });
+  }, []);
 
-  return { infos, error };
+  return { infos, error, isLoading };
 };
 
 export default useInfos;

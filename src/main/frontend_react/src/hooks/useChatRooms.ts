@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
-import apiClient from "../Services/api-client";
 import { CanceledError } from "axios";
 import apiChatRoom from "../Services/api-chatRoom";
 
 interface ChatRoom {
   id: number;
   name: string;
-}
-interface FetchChatRoomsResponse {
-  results: ChatRoom[];
 }
 
 const useChatRooms = () => {
@@ -19,10 +15,10 @@ const useChatRooms = () => {
     const controller = new AbortController();
 
     apiChatRoom
-      .get<FetchChatRoomsResponse>("/get-all", {
+      .get("/get-all", {
         signal: controller.signal,
       })
-      .then((response) => setChatRooms(response.data.results))
+      .then((response) => setChatRooms(response.data))
       .catch((error) => {
         if (error instanceof CanceledError) return;
         setError(error.message);
